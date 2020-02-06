@@ -68,3 +68,29 @@ conf= {
 
 var conn=icsvg_connect(s,conf) ;
 ```
+
+## icsvg_text
+
+```js
+conf= {
+  from:buf2.Z,
+  to:reg1.CK,
+  dir:"clockwise",
+  color:"#123456"
+} ;
+
+var conn=icsvg_text(s,conf) ;
+```
+
+## icsvg_port
+
+```js
+conf= {
+  x:20,
+  y:20,
+  name:"CLK",
+  color:"#123456"
+} ;
+
+var conn=icsvg_port(s,conf) ;
+```

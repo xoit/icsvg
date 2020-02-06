@@ -231,3 +231,21 @@ function icsvg_connect(s,conf) {
   }
   s.path("M "+x1+" "+y1+" L "+x+" "+y+" L "+x2+" "+y2).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}); ;
 }
+
+function icsvg_port(s,conf) {
+  var conf = {
+    x: 10,
+    y: 10,
+    name: "CLK",
+    position:"left",
+    color:"#123456",
+    size:3
+  }
+  var x=conf.x ;
+  var y=conf.y ;
+  var name=conf.name ;
+  var position=conf.position ;
+  var ecolor=conf.color ;
+  var size=conf.size ;
+  s.rect(x,y,size,size,1,1).attr({ stroke: ecolor, 'strokeWidth': 2, fill: 'white', 'opacity': 1 });
+}
