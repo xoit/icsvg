@@ -2,9 +2,9 @@
 
 Use snapsvg to show the IC components
 
-## Snapshort
+## Demo
 
-![20200205](asset/20200205.png)
+[https://xoit.github.io/icsvg](https://xoit.github.io/icsvg)
 
 ## Execution
 
@@ -109,9 +109,9 @@ tmp.click(function(){
 
 </script>
 
-$\Huge T\huge \scriptscriptstyle arrive \Huge = T\huge \scriptscriptstyle latency(launch) \Huge + T\huge \scriptscriptstyle ck\to q \Huge + T \huge \scriptscriptstyle prop \Huge + T \huge \scriptscriptstyle setup \newline \Huge T\huge \scriptscriptstyle require \Huge = T\huge \scriptscriptstyle latency(capture) \Huge + T \huge \scriptscriptstyle period(l\to c)$
+$\Huge T\huge \scriptscriptstyle arrival \Huge = T\huge \scriptscriptstyle latency(launch) \Huge + T\huge \scriptscriptstyle ck\to q \Huge + T \huge \scriptscriptstyle prop\newline \Huge T\huge \scriptscriptstyle required \Huge = T\huge \scriptscriptstyle latency(capture) \Huge + T \huge \scriptscriptstyle period(l\to c) \Huge - T \huge \scriptscriptstyle setup$
 
-$\Huge T\huge \scriptscriptstyle latency(launch) \Huge + T\huge \scriptscriptstyle ck\to q \Huge + T \huge \scriptscriptstyle prop \Huge + T \huge \scriptscriptstyle setup \Huge <= T\huge \scriptscriptstyle latency(capture) \Huge + T \huge \scriptscriptstyle period(l\to c) \newline \Huge T\huge \scriptscriptstyle skew \Huge = T\huge \scriptscriptstyle latency(capture) \Huge - T\huge \scriptscriptstyle latency(launch)\newline \Huge T\huge \scriptscriptstyle ck\to q \Huge + T \huge \scriptscriptstyle prop \Huge + T \huge \scriptscriptstyle setup \Huge <= T\huge \scriptscriptstyle skew \Huge + T \huge \scriptscriptstyle period(l\to c)$
+$\Huge T\huge \scriptscriptstyle latency(launch) \Huge + T\huge \scriptscriptstyle ck\to q \Huge + T \huge \scriptscriptstyle prop \Huge <= T\huge \scriptscriptstyle latency(capture) \Huge + T \huge \scriptscriptstyle period(l\to c) \Huge - T \huge \scriptscriptstyle setup \newline \Huge T\huge \scriptscriptstyle skew \Huge = T\huge \scriptscriptstyle latency(capture) \Huge - T\huge \scriptscriptstyle latency(launch)\newline \Huge T\huge \scriptscriptstyle ck\to q \Huge + T \huge \scriptscriptstyle prop \Huge + T \huge \scriptscriptstyle setup \Huge <= T\huge \scriptscriptstyle skew \Huge + T \huge \scriptscriptstyle period(l\to c)$
 
 > [!Note]
 > $\Large T \large \scriptscriptstyle period$ means the period from launch clock edge to capture edge.
