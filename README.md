@@ -4,7 +4,7 @@ Use snapsvg to show the IC components
 
 ## Demo
 
-[https://xoit.github.io/icsvg](https://xoit.github.io/icsvg/#/PLAYGROUND.md)
+[http://icsvg.icsteve.com](http://icsvg.icsteve.com/#/PLAYGROUND.md)
 
 ```
 <svg id="svg"></svg>
