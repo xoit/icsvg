@@ -6,8 +6,6 @@ Use snapsvg to show the IC components
 
 [https://xoit.github.io/icsvg](https://xoit.github.io/icsvg/#/PLAYGROUND.md)
 
-## Execution
-
 ```
 <svg id="svg"></svg>
 
