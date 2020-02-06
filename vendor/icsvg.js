@@ -77,7 +77,7 @@ function icsvg_reg(s,conf={}) {
   rtn.CK.x=lx1 ;
   rtn.CK.y=ly ;
   var rx=lx2-1;
-  if (neg) {
+  if (!neg) {
     var rck=s.circle(rx,ly,1).attr({ stroke: ecolor, fill: 'white'});
   }
   // add text for CK/D/Q

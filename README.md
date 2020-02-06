@@ -37,11 +37,11 @@ var conf={
   size: 50,
   color: "#123456",
   reset: -1,
-  latch: true,
-  triggle: 0,
+  latch: false,
+  triggle: 1,
   d_length: 28,
   q_length: 0,
-  ck_to_q: true
+  ck_to_q: false
 } ;
 var reg2=icsvg_reg(s,conf) ;
 
@@ -109,9 +109,9 @@ tmp.click(function(){
 
 </script>
 
-$\Huge T\huge \scriptscriptstyle arrival \Huge = T\huge \scriptscriptstyle latency(launch) \Huge + T\huge \scriptscriptstyle ck\to q \Huge + T \huge \scriptscriptstyle prop\newline \Huge T\huge \scriptscriptstyle required \Huge = T\huge \scriptscriptstyle latency(capture) \Huge + T \huge \scriptscriptstyle period(l\to c) \Huge - T \huge \scriptscriptstyle setup$
+$\Huge T\huge \scriptscriptstyle arrival \Huge = T\huge \scriptscriptstyle latency(launch) \Huge + T\huge \scriptscriptstyle ck\to q \Huge + T \huge \scriptscriptstyle prop\newline \Huge T\huge \scriptscriptstyle required \Huge = T\huge \scriptscriptstyle latency(capture) \Huge + T \huge \scriptscriptstyle period(l\to c) \Huge - T \huge \scriptscriptstyle setup\newline \Huge T\huge \scriptscriptstyle slack\Huge = T\huge \scriptscriptstyle required \Huge - T\huge \scriptscriptstyle arrival$
 
-$\Huge T\huge \scriptscriptstyle latency(launch) \Huge + T\huge \scriptscriptstyle ck\to q \Huge + T \huge \scriptscriptstyle prop \Huge <= T\huge \scriptscriptstyle latency(capture) \Huge + T \huge \scriptscriptstyle period(l\to c) \Huge - T \huge \scriptscriptstyle setup \newline \Huge T\huge \scriptscriptstyle skew \Huge = T\huge \scriptscriptstyle latency(capture) \Huge - T\huge \scriptscriptstyle latency(launch)\newline \Huge T\huge \scriptscriptstyle ck\to q \Huge + T \huge \scriptscriptstyle prop \Huge + T \huge \scriptscriptstyle setup \Huge <= T\huge \scriptscriptstyle skew \Huge + T \huge \scriptscriptstyle period(l\to c)$
+$\Huge T\huge \scriptscriptstyle latency(launch) \Huge + T\huge \scriptscriptstyle ck\to q \Huge + T \huge \scriptscriptstyle prop \Huge + T \huge \scriptscriptstyle uncertainty \Huge <= T\huge \scriptscriptstyle latency(capture) \Huge + T \huge \scriptscriptstyle period(l\to c) \Huge - T \huge \scriptscriptstyle setup \newline \Huge T\huge \scriptscriptstyle skew \Huge = T\huge \scriptscriptstyle latency(capture) \Huge - T\huge \scriptscriptstyle latency(launch)\newline \Huge T\huge \scriptscriptstyle ck\to q \Huge + T \huge \scriptscriptstyle prop \Huge <= T\huge \scriptscriptstyle skew \Huge + T \huge \scriptscriptstyle period(l\to c) \Huge - T \huge \scriptscriptstyle setup$
 
 > [!Note]
 > $\Large T \large \scriptscriptstyle period$ means the period from launch clock edge to capture edge.
