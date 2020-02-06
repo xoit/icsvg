@@ -1,14 +1,4 @@
-# icsvg
 
-Use snapsvg to show the IC components
-
-## Demo
-
-[https://xoit.github.io/icsvg](https://xoit.github.io/icsvg/#/PLAYGROUND.md)
-
-## Execution
-
-```
 <svg id="svg"></svg>
 
 <script>
@@ -118,5 +108,3 @@ $\Huge T\huge \scriptscriptstyle latency(launch) \Huge + T\huge \scriptscriptsty
 > $\Large T \large \scriptscriptstyle period$ means the period from launch clock edge to capture edge.
 > 
 > That may be one cycle of clock, half or 60% of clock cycle based on duty cycle.
-
-```
