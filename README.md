@@ -6,7 +6,7 @@ Use snapsvg to show the IC components
 
 [http://icsvg.icsteve.com](http://icsvg.icsteve.com/#/PLAYGROUND.md)
 
-```
+```js
 <svg id="svg"></svg>
 
 <script>

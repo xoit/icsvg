@@ -233,19 +233,22 @@ function icsvg_connect(s,conf) {
 }
 
 function icsvg_port(s,conf) {
-  var conf = {
-    x: 10,
-    y: 10,
-    name: "CLK",
-    position:"left",
-    color:"#123456",
-    size:3
-  }
   var x=conf.x ;
   var y=conf.y ;
   var name=conf.name ;
   var position=conf.position ;
   var ecolor=conf.color ;
   var size=conf.size ;
-  s.rect(x,y,size,size,1,1).attr({ stroke: ecolor, 'strokeWidth': 2, fill: 'white', 'opacity': 1 });
+  var px =x;
+  var py=y-1;
+  s.rect(px,py,size,size,1,1).attr({ stroke: ecolor, 'strokeWidth': 1, fill: 'white'});
+  var fs=8 ;
+  var tx=px-0.6*fs*name.length ;
+  var ty=py ;
+  s.text(tx,ty,name).attr({"font-size":fs+"px"}) ;
+  var rtn = {
+    IN: {x:tx, y:ty},
+    OUT: {x: x+size, y:y}
+  } ;
+  return rtn ;
 }

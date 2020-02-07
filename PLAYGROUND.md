@@ -5,7 +5,7 @@
 var s = Snap("#svg");
 s.attr({ viewBox: "0 0 500 130" });
 
-var startx = 20 ;
+var startx = 50 ;
 var starty = 20 ;
 
 var conf={
@@ -66,6 +66,16 @@ var conf={
 var buf2=icsvg_repeater(s,conf);
 
 //console.log(buf1.A.x) ;
+  var conf = {
+    x: startx-20,
+    y: starty+69,
+    name: "CLK",
+    position:"left",
+    color:"#123456",
+    size:3
+  };
+
+var clkp=icsvg_port(s,conf) ;
 
 conf= {
   from:buf2.Z,
@@ -75,12 +85,20 @@ conf= {
 } ;
 icsvg_connect(s,conf) ;
 conf= {
-  from:buf2.A,
-  to:buf1.A,
+  to:clkp.OUT,
+  from:buf1.A,
   dir:"clockwise",
   color:"#123456"
 } ;
-icsvg_connect(s,conf) ;conf= {
+icsvg_connect(s,conf) ;
+conf= {
+  from:clkp.OUT,
+  to:buf2.A,
+  dir:"anticlockwise",
+  color:"#123456"
+} ;
+icsvg_connect(s,conf) ;
+conf= {
   from:buf1.Z,
   to:reg2.CK,
   dir:"anticlockwise",
@@ -88,17 +106,15 @@ icsvg_connect(s,conf) ;conf= {
 } ;
 icsvg_connect(s,conf) ;
 
-icsvg_port(s,conf) ;
-
-var tmp=s.circle(50,50,2);
-tmp.click(function(){
-  tmp.animate({cx: 90}, 30);
-  //tmp.animate({
-  //      fill: "#00f"
-  //  }, 1500, mina.bounce, function() {
-  //      console.log("animate") ;
-  //  });
-}) ;
+//var tmp=s.circle(50,50,2);
+//tmp.click(function(){
+//  tmp.animate({cx: 90}, 30);
+//  //tmp.animate({
+//  //      fill: "#00f"
+//  //  }, 1500, mina.bounce, function() {
+//  //      console.log("animate") ;
+//  //  });
+//}) ;
 
 </script>
 
