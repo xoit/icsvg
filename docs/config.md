@@ -94,3 +94,39 @@ conf= {
 
 var conn=icsvg_port(s,conf) ;
 ```
+
+## icsvg_wave_clock
+
+```js
+conf= {
+  x:20,
+  y:120,
+  repeat:10,
+  size:10,
+  gated: 0,
+  duty_cycle:0.3,
+  name:"CLK"
+}
+icsvg_wave_clock(s,conf) ;
+```
+
+## icsvg_wave_data
+
+```js
+conf= {
+  x:20,
+  y:120,
+  repeat:10,
+  size:10,
+  gated: 0,
+  duty_cycle:0.3,
+  name:"CLK"
+}
+icsvg_wave_data(s,conf) ;
+```
+
+## icsvg_wave_data_x
+
+```js
+icsvg_wave_data_x(s,{start:newx,end:nextx,y:newy,step:6,size:wh}) ;
+```
