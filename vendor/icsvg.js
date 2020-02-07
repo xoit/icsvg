@@ -261,10 +261,29 @@ function icsvg_wave_clock(s,conf) {
   var wc=conf.repeat ;
   var wg=conf.gated ;
   var wd=conf.duty_cycle ;
+  var name=conf.name ;
+  var fs = 8 ;
+  var tx=wx-name.length * fs *0.6 ;
+  var ty=wy ;
+  s.text(tx,ty,name).attr({"font-size": fs+"px"}) ;
   s.path("M "+wx+" "+wy+" L "+(wx+ww)+" "+wy).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0}); 
   wx=wx+ww ;
   for (var i = 0; i<wc ; i++) {
-    s.path("M "+wx+" "+wy+" L "+wx+" "+(wy-wh)+" L "+(wx+ww*2*wd)+" "+(wy-wh)+" L "+(wx+ww*2*wd)+" "+wy+" L "+(wx+ww*2*wd+ww*2*(1-wd))+" "+wy).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0}); 
+    s.path("M "+wx+" "+wy+" L "+wx+" "+(wy-wh)).attr({stroke:"#00f", fill: 'white',"fill-opacity":0}) ;
+    s.path("M "+wx+" "+(wy-wh)+" L "+(wx+ww*2*wd)+" "+(wy-wh)).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});
+    s.path("M "+(wx+ww*2*wd)+" "+(wy-wh)+" L "+(wx+ww*2*wd)+" "+wy).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});
+    s.path("M "+(wx+ww*2*wd)+" "+wy+" L "+(wx+ww*2*wd+ww*2*(1-wd))+" "+wy).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0}); 
     wx=wx+ww*2;
   }
+}
+
+function icsvg_wave_data(s,conf) {
+  var wx=conf.x ;
+  var wy=conf.y ;
+  var wh=conf.size ;
+  var ww=wh / 0.618 ;
+  var wd=conf.duty_cycle ;
+   wx=wx+ww ;
+  s.path("M "+wx+" "+(wy-wh)+" L "+(wx+ww*2*wd*20)+" "+(wy-wh)).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});
+  s.path("M "+wx+" "+wy+" L "+(wx+ww*2*wd*20)+" "+wy).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});
 }

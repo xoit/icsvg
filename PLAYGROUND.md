@@ -3,7 +3,7 @@
 
 <script>
 var s = Snap("#svg");
-s.attr({ viewBox: "0 0 500 130" });
+s.attr({ viewBox: "0 0 500 200" });
 
 var startx = 50 ;
 var starty = 20 ;
@@ -112,9 +112,18 @@ conf= {
   repeat:10,
   size:10,
   gated: 0,
-  duty_cycle:0.3
+  duty_cycle:0.3,
+  name:"CLK"
 }
 icsvg_wave_clock(s,conf) ;
+
+conf.y = 150 ;
+conf.duty_cycle=0.5;
+
+icsvg_wave_clock(s,conf) ;
+conf.y = 180 ;
+icsvg_wave_data(s,conf) ;
+
 //var tmp=s.circle(50,50,2);
 //tmp.click(function(){
 //  tmp.animate({cx: 90}, 30);
