@@ -252,3 +252,19 @@ function icsvg_port(s,conf) {
   } ;
   return rtn ;
 }
+
+function icsvg_wave_clock(s,conf) {
+  var wx=conf.x ;
+  var wy=conf.y ;
+  var wh=conf.size ;
+  var ww=wh / 0.618 ;
+  var wc=conf.repeat ;
+  var wg=conf.gated ;
+  var wd=conf.duty_cycle ;
+  s.path("M "+wx+" "+wy+" L "+(wx+ww)+" "+wy).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0}); 
+  wx=wx+ww ;
+  for (var i = 0; i<wc ; i++) {
+    s.path("M "+wx+" "+wy+" L "+wx+" "+(wy-wh)+" L "+(wx+ww*2*wd)+" "+(wy-wh)+" L "+(wx+ww*2*wd)+" "+wy+" L "+(wx+ww*2*wd+ww*2*(1-wd))+" "+wy).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0}); 
+    wx=wx+ww*2;
+  }
+}

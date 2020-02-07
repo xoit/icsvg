@@ -106,6 +106,15 @@ conf= {
 } ;
 icsvg_connect(s,conf) ;
 
+conf= {
+  x:20,
+  y:120,
+  repeat:10,
+  size:10,
+  gated: 0,
+  duty_cycle:0.3
+}
+icsvg_wave_clock(s,conf) ;
 //var tmp=s.circle(50,50,2);
 //tmp.click(function(){
 //  tmp.animate({cx: 90}, 30);
