@@ -118,11 +118,12 @@ conf= {
 icsvg_wave_clock(s,conf) ;
 
 conf.y = 150 ;
+icsvg_wave_data(s,conf) ;
+
+conf.y = 180 ;
 conf.duty_cycle=0.5;
 
 icsvg_wave_clock(s,conf) ;
-conf.y = 180 ;
-icsvg_wave_data(s,conf) ;
 
 //var tmp=s.circle(50,50,2);
 //tmp.click(function(){

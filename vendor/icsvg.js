@@ -265,7 +265,7 @@ function icsvg_wave_clock(s,conf) {
   var fs = 8 ;
   var tx=wx-name.length * fs *0.6 ;
   var ty=wy ;
-  s.text(tx,ty,name).attr({"font-size": fs+"px"}) ;
+  s.text(tx,ty-1,name).attr({"font-size": fs+"px"}) ;
   s.path("M "+wx+" "+wy+" L "+(wx+ww)+" "+wy).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0}); 
   wx=wx+ww ;
   for (var i = 0; i<wc ; i++) {
@@ -283,7 +283,44 @@ function icsvg_wave_data(s,conf) {
   var wh=conf.size ;
   var ww=wh / 0.618 ;
   var wd=conf.duty_cycle ;
-   wx=wx+ww ;
-  s.path("M "+wx+" "+(wy-wh)+" L "+(wx+ww*2*wd*20)+" "+(wy-wh)).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});
-  s.path("M "+wx+" "+wy+" L "+(wx+ww*2*wd*20)+" "+wy).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});
+  var newx=wx ;
+  var newy=wy ;
+  var name="Data";
+  var fs = 8 ;
+  var tx=wx-name.length * fs *0.6 ;
+  var ty=wy ;
+  s.text(tx,ty-1,name).attr({"font-size": fs+"px"}) ;
+
+  s.path("M "+newx+" "+(newy-wh)+" L "+(newx+ww*2*wd*10+ww)+" "+(newy-wh)).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});
+  s.path("M "+newx+" "+newy+" L "+(newx+ww*2*wd*10+ww)+" "+newy).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});
+  nextx=newx+ww*2*wd*10+ww ;
+  icsvg_wave_data_x(s,{start:newx,end:nextx,y:newy,step:6,size:wh}) ;
+  newx=nextx ;
+  icsvg_wave_data_x(s,{start:newx,y:newy,step:8,size:wh}) ;
+  newx=newx+6;
+  s.path("M "+newx+" "+(newy-wh)+" L "+(newx+ww*2*wd*10+ww)+" "+(newy-wh)).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});
+  s.path("M "+newx+" "+newy+" L "+(newx+ww*2*wd*10+ww)+" "+newy).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});
+}
+function icsvg_wave_data_x(s,conf) {
+  var start=conf.start ;
+  var y=conf.y ;
+  var wh=conf.size;
+  var step=conf.step ;
+  if (typeof conf.end == "undefined") {
+    var end=start+step-1;
+  } else {
+    var end=conf.end
+  }
+  var cnt=parseInt((end-start)/step);
+  console.log(cnt) ;
+  var newx = start;
+  for (var i=0 ; i<cnt ; i++) {
+    s.path("M "+newx+" "+(y-wh)+" L "+(newx+step-2)+" "+y).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});
+    s.path("M "+newx+" "+y+" L "+(newx+step-2)+" "+(y-wh)).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});
+    newx=newx+step ;
+  }
+  if (newx+3<end) {
+    s.path("M "+newx+" "+(y-wh)+" L "+(end-1)+" "+y).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});
+    s.path("M "+newx+" "+y+" L "+(end-1)+" "+(y-wh)).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});
+  }
 }
