@@ -31,7 +31,8 @@ var reg2=icsvg_reg(s,{
   triggle: 1,
   d_length: 28,
   q_length: 0,
-  ck_to_q: false
+  ck_to_q: false,
+  type:"synchronizer"
 }) ;
 
 var logic1=icsvg_logic(s,{
@@ -126,7 +127,7 @@ icsvg_nor(s,{
   y:50,
   size: 16
 });
-icsvg_nxor(s,{
+icsvg_xnor(s,{
   x: 330,
   y:50,
   size: 16
@@ -138,11 +139,23 @@ icsvg_mux(s,{
 });
 var buf1=icsvg_repeater(s,{
   x: 250,
-  y: 55,
+  y: 65,
   size: 16,
   type:"inverter",
   color:"#123456",
   orient:"r0"
+});
+var btg=icsvg_tg(s,{
+  x: 290,
+  y: 65,
+  size: 16,
+  color:"#123456",
+  orient:"r0"
+});
+icsvg_demux(s,{
+  x: 330,
+  y:80,
+  size: 16
 });
 //var tmp=s.circle(50,50,2);
 //tmp.click(function(){

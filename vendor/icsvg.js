@@ -56,7 +56,12 @@ function icsvg_reg(s,conf={}) {
   var w = size * 0.6 ;
   var h = size ;
   // draw the rectangle of register
-  var r = s.rect(x,y,w,h,3,3).attr({ stroke: ecolor, 'strokeWidth': 2, fill: 'white', 'opacity': 1 });
+  if (typeof conf.type !="undefinedf") {
+    if (conf.type=="synchronizer") {
+      var r = s.rect(x+3,y-3,w,h,1,2).attr({ stroke: ecolor, 'strokeWidth': 1.6, fill: 'white', 'opacity': 1 });
+    }
+  }
+  var r = s.rect(x,y,w,h,2,2).attr({ stroke: ecolor, 'strokeWidth': 2, fill: 'white', 'opacity': 1 });
   r.data("ckq_visible",true) ;
   // draw the clock symbol for register
   var cx1= x ;
@@ -110,7 +115,13 @@ function icsvg_reg(s,conf={}) {
   // add reset symbol and text
   var lx1=x+w ;
   var lx2=lx1+5;
-  var lq = s.path("M"+lx1+" "+ly+"L"+(lx2+longq)+" "+ly).attr({ stroke: ecolor, fill: 'white'});
+  var lqextend = 0 ;
+  if (typeof conf.type !="undefinedf") {
+    if (conf.type=="synchronizer") {
+      lqextend=4.6 ;
+    }
+  }
+  var lq = s.path("M"+(lx1+lqextend)+" "+ly+"L"+(lx2+longq+lqextend)+" "+ly).attr({ stroke: ecolor, fill: 'white'});
   var rx=x+w/2 ;
   var ry=y+h+1 ;
   if (! reset) {
@@ -301,7 +312,7 @@ function icsvg_xor(s,conf) {
   rtn.Z.y=bbox.cy ;
   return rtn;
 }
-function icsvg_nxor(s,conf) {
+function icsvg_xnor(s,conf) {
   var rtn=icsvg_xor(s,conf) ;
   var x=conf.x ;
   var y=conf.y ;
@@ -312,6 +323,40 @@ function icsvg_nxor(s,conf) {
   rtn.Z.x=x+size*1 ;
   rtn.Z.y=y-size/2 ;
   return rtn ;
+}
+function icsvg_tg(s,conf) {
+  var x=conf.x ;
+  var y=conf.y ;
+  var size=conf.size ;
+  var ecolor="#123456" ;
+  var x2=x+0.866*size ;
+  var y2=y+0.5*size ;
+  var x3=x ;
+  var y3=y+size ;
+  var lx=x ;
+  var ly=y+0.5*size ;
+  var lx2=lx-5 ;
+  var ly2=ly ;
+  var l1=s.path("M "+lx+ " "+ly+" L "+lx2+" "+ly2).attr({ stroke: ecolor, fill: 'white'}) ;
+  var lx=x2 ;
+  var ly=y2 ;
+  var lx2=lx+5 ;
+  var ly2=ly ;
+  var l2=s.path("M "+lx+ " "+ly+" L "+lx2+" "+ly2).attr({ stroke: ecolor, fill: 'white'}) ;
+  var l3=s.path("M "+x+" "+y+ " L "+x2+" "+y2+" L "+x3+" "+y3+" L "+x+" "+y).attr({ stroke: ecolor, fill: 'white'});
+
+  var l4=s.path("M "+x2+" "+y+ " L "+x2+" "+y3).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var l5=s.path("M "+x2+" "+y3+" L "+x+" "+y2).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=l5.getBBox() ;
+  var lx=bbox.cx ;
+  var ly=bbox.cy ;
+  var lck=s.path("M "+lx+ " "+ly+" L "+lx+" "+(ly+5)).attr({ stroke: ecolor, fill: 'white'}) ;
+  var l6=s.path("M "+x+" "+y2+" L "+x2+" "+y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0});
+  var bbox=l6.getBBox() ;
+  var lx=bbox.cx ;
+  var ly=bbox.cy ;
+  var cck=s.circle(lx,ly,1).attr({ stroke: ecolor, fill: 'white'}) ;
+  var lnck=s.path("M "+lx+ " "+ly+" L "+lx+" "+(ly-7)).attr({ stroke: ecolor, fill: 'white'}) ;
 }
 function icsvg_mux(s,conf) {
     var rtn={
@@ -367,6 +412,61 @@ function icsvg_mux(s,conf) {
   rtn.Z.y=bbox.cy ;
   return rtn;
 }
+function icsvg_demux(s,conf) {
+    var rtn={
+    A:{
+      x:0,
+      y:0
+    },
+    B:{
+      x:0,
+      y:0
+    },
+    Z:{
+      x:0,
+      y:0
+    },
+    S:{
+      x:0,
+      y:0
+    }
+  };
+  var x=conf.x ;
+  var y=conf.y-conf.size/2 ;
+  var size=conf.size ;
+  var ll_x = x ;
+  var ll_y = y+0.3*size ;
+  var tl_x = x ;
+  var tl_y = y-0.3*size ;
+  var tr_x = x+0.6*size ;
+  var tr_y = y-0.5*size ;
+  var lr_x = x+0.6*size ;
+  var lr_y = y+0.5*size ;
+  var ecolor = "#123456" ;
+  s.path("M "+ll_x+" "+ll_y+" L "+tl_x+" "+tl_y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var tside=s.path("M "+tl_x+" "+tl_y+" L "+tr_x+" "+tr_y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  s.path("M "+tr_x+" "+tr_y+" L "+lr_x+" "+lr_y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var lside=s.path("M "+lr_x+" "+lr_y+" L "+ll_x+" "+ll_y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=lside.getBBox() ;
+  var pin_s=s.path("M "+(bbox.cx)+" "+(bbox.cy)+" L "+(bbox.cx)+" "+(bbox.cy+6)).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=pin_s.getBBox() ;
+  rtn.S.x=bbox.cx ;
+  rtn.S.y=bbox.cy ;
+  var pin_a=s.path("M "+(tr_x)+" "+(y-size/4)+" L "+(tr_x+6)+" "+(y-size/4)).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=pin_a.getBBox() ;
+  rtn.A.x=bbox.cx ;
+  rtn.A.y=bbox.cy ;
+  var pin_b=s.path("M "+(tr_x)+" "+(y+size/4)+" L "+(tr_x+6)+" "+(y+size/4)).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=pin_b.getBBox() ;
+  rtn.B.x=bbox.cx ;
+  rtn.B.y=bbox.cy ;
+  var pin_z=s.path("M "+(ll_x)+" "+y+" L "+(ll_x-6)+" "+y).attr({ stroke: ecolor, fill: 'white'}) ;
+  var bbox=pin_z.getBBox() ;
+  rtn.Z.x=bbox.cx ;
+  rtn.Z.y=bbox.cy ;
+  return rtn;
+}
+
 function icsvg_text (s,x,y,size,tmain,tsub="") {
   var fs = size ;
   var tmain = s.text(x,y,tmain).attr({"font-size": fs+"px"}) ;
