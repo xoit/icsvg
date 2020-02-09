@@ -12,7 +12,7 @@ function icsvg_reg(s,conf={}) {
       q_length: 0,
       ck_to_q: true
     } ;
-    console.log(conf_sample) ;
+    //console.log(conf_sample) ;
     return ;
   }
   var rtn={
@@ -141,7 +141,232 @@ function icsvg_logic(s,conf) {
   var fs=20*r ;
   var t=s.text((sx-40*r),(sy+60*r),"Logic").attr({"font-size": fs+'px', color: '#123456'}) ;;
 }
-  
+function icsvg_and(s,conf) {
+  var rtn={
+    A:{
+      x:0,
+      y:0
+    },
+    B:{
+      x:0,
+      y:0
+    },
+    Z:{
+      x:0,
+      y:0
+    }
+  } ;
+  var x=conf.x ;
+  var y=conf.y ;
+  var size=conf.size ;
+  var llx=x ;
+  var lly=y ;
+  var tlx=x ;
+  var tly=y-size ;
+  var tr_x=x+size*0.6 ;
+  var tr_y=y-size ;
+  var lrx=x+size*0.6 ;
+  var lry=y ;
+  var ecolor="#123456";
+  s.path("M "+lrx+" "+lry+" L "+llx+" "+lly).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  s.path("M "+llx+" "+lly+" L "+tlx+" "+tly).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  s.path("M "+tlx+" "+tly+" L "+tr_x+" "+tr_y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var pin_a=s.path("M "+llx+" "+(lly-size/4)+" L "+(llx-6)+" "+(lly-size/4)).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=pin_a.getBBox() ;
+  rtn.A.x=bbox.cx ;
+  rtn.A.y=bbox.cy ;
+  var pin_b=s.path("M "+llx+" "+(tly+size/4)+" L "+(llx-6)+" "+(tly+size/4)).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=pin_b.getBBox() ;
+  rtn.B.x=bbox.cx ;
+  rtn.B.y=bbox.cy ;
+  var pin_z=s.path("M "+(x+size*1-1)+" "+(y-size/2)+" L "+(x+size*1+6)+" "+(y-size/2)).attr({ stroke: ecolor, fill: 'white'}) ;
+  var bbox=pin_z.getBBox() ;
+  rtn.Z.x=bbox.cx ;
+  rtn.Z.y=bbox.cy ;
+  s.path("M "+lrx+" "+lry+" Q "+(x+size*1.2)+" "+(y-size/2)+" "+tr_x+" "+tr_y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  return rtn ;
+}
+function icsvg_nand(s,conf) {
+  var rtn=icsvg_and(s,conf) ;
+  var x=conf.x ;
+  var y=conf.y ;
+  var size=conf.size ;
+  var ecolor="#123456";
+  var csize=parseInt((size-1)/10) ;
+  s.circle((x+size*1-1),(y-size/2),csize).attr({ stroke: ecolor, fill: 'white'}) ;
+  rtn.Z.x=x+size*1 ;
+  rtn.Z.y=y-size/2 ;
+  return rtn ;
+}
+function icsvg_or(s,conf) {
+  var rtn = {
+    A:{
+      x:0,
+      y:0
+    },
+    B:{
+      x:0,
+      y:0
+    },
+    Z:{
+      x:0,
+      y:0
+    }
+  } ;
+  var x=conf.x ;
+  var y=conf.y ;
+  var size=conf.size ;
+  var llx=x ;
+  var lly=y ;
+  var tlx=x ;
+  var tly=y-size ;
+  var tr_x=x+size*0.6 ;
+  var tr_y=y-size ;
+  var lrx=x+size*0.6 ;
+  var lry=y ;
+  var ecolor="#123456";
+  s.path("M "+lrx+" "+lry+" L "+llx+" "+lly).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  s.path("M "+llx+" "+lly+" Q "+(llx+size*0.3)+" "+(lly-size/2)+" "+tlx+" "+tly).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  s.path("M "+tlx+" "+tly+" L "+tr_x+" "+tr_y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  s.path("M "+lrx+" "+lry+" Q "+(x+size*1.2)+" "+(y-size/2)+" "+tr_x+" "+tr_y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var pin_a=s.path("M "+(llx+1)+" "+(lly-size/4)+" L "+(llx-6)+" "+(lly-size/4)).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=pin_a.getBBox() ;
+  rtn.A.x=bbox.cx ;
+  rtn.A.y=bbox.cy ;
+  var pin_b=s.path("M "+(llx+1)+" "+(tly+size/4)+" L "+(llx-6)+" "+(tly+size/4)).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=pin_b.getBBox() ;
+  rtn.B.x=bbox.cx ;
+  rtn.B.y=bbox.cy ;
+  var pin_z=s.path("M "+(x+size*1-1)+" "+(y-size/2)+" L "+(x+size*1+6)+" "+(y-size/2)).attr({ stroke: ecolor, fill: 'white'}) ;
+  var bbox=pin_z.getBBox() ;
+  rtn.Z.x=bbox.cx ;
+  rtn.Z.y=bbox.cy ;
+  return rtn ;
+}
+function icsvg_nor(s,conf) {
+  var rtn=icsvg_or(s,conf) ;
+  var x=conf.x ;
+  var y=conf.y ;
+  var size=conf.size ;
+  var ecolor="#123456";
+  var csize=parseInt((size-1)/10) ;
+  s.circle((x+size*1-1),(y-size/2),csize).attr({ stroke: ecolor, fill: 'white'}) ;
+  rtn.Z.x=x+size*1 ;
+  rtn.Z.y=y-size/2 ;
+  return rtn ;
+}
+function icsvg_xor(s,conf) {
+  var rtn={
+    A:{
+      x:0,
+      y:0
+    },
+    B:{
+      x:0,
+      y:0
+    },
+    Z:{
+      x:0,
+      y:0
+    }
+  };
+  var x=conf.x ;
+  var y=conf.y ;
+  var size=conf.size ;
+  var llx=x ;
+  var lly=y ;
+  var tlx=x ;
+  var tly=y-size ;
+  var tr_x=x+size*0.6 ;
+  var tr_y=y-size+0.2 ;
+  var lrx=x+size*0.6 ;
+  var lry=y-0.2 ;
+  var ecolor="#123456";
+  s.path("M "+lrx+" "+lry+" L "+llx+" "+lly).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  s.path("M "+llx+" "+lly+" Q "+(llx+size*0.3)+" "+(lly-size/2)+" "+tlx+" "+tly).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  s.path("M "+tlx+" "+tly+" L "+tr_x+" "+tr_y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  s.path("M "+lrx+" "+lry+" Q "+(x+size*1.2)+" "+(y-size/2)+" "+tr_x+" "+tr_y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  s.path("M "+(llx-2)+" "+lly+" Q "+(llx+size*0.3-2)+" "+(lly-size/2)+" "+(tlx-2)+" "+tly).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var pin_a=s.path("M "+(llx+1)+" "+(lly-size/4)+" L "+(llx-6)+" "+(lly-size/4)).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=pin_a.getBBox() ;
+  rtn.A.x=bbox.cx ;
+  rtn.A.y=bbox.cy ;
+  var pin_b=s.path("M "+(llx+1)+" "+(tly+size/4)+" L "+(llx-6)+" "+(tly+size/4)).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=pin_b.getBBox() ;
+  rtn.B.x=bbox.cx ;
+  rtn.B.y=bbox.cy ;
+  var pin_z=s.path("M "+(x+size*1-1)+" "+(y-size/2)+" L "+(x+size*1+6)+" "+(y-size/2)).attr({ stroke: ecolor, fill: 'white'}) ;
+  var bbox=pin_z.getBBox() ;
+  rtn.Z.x=bbox.cx ;
+  rtn.Z.y=bbox.cy ;
+  return rtn;
+}
+function icsvg_nxor(s,conf) {
+  var rtn=icsvg_xor(s,conf) ;
+  var x=conf.x ;
+  var y=conf.y ;
+  var size=conf.size ;
+  var ecolor="#123456";
+  var csize=parseInt((size-1)/10) ;
+  s.circle((x+size*1-1),(y-size/2),csize).attr({ stroke: ecolor, fill: 'white'}) ;
+  rtn.Z.x=x+size*1 ;
+  rtn.Z.y=y-size/2 ;
+  return rtn ;
+}
+function icsvg_mux(s,conf) {
+    var rtn={
+    A:{
+      x:0,
+      y:0
+    },
+    B:{
+      x:0,
+      y:0
+    },
+    Z:{
+      x:0,
+      y:0
+    },
+    S:{
+      x:0,
+      y:0
+    }
+  };
+  var x=conf.x ;
+  var y=conf.y-conf.size/2 ;
+  var size=conf.size ;
+  var ll_x = x ;
+  var ll_y = y+0.5*size ;
+  var tl_x = x ;
+  var tl_y = y-0.5*size ;
+  var tr_x = x+0.6*size ;
+  var tr_y = y-0.3*size ;
+  var lr_x = x+0.6*size ;
+  var lr_y = y+0.3*size ;
+  var ecolor = "#123456" ;
+  s.path("M "+ll_x+" "+ll_y+" L "+tl_x+" "+tl_y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var tside=s.path("M "+tl_x+" "+tl_y+" L "+tr_x+" "+tr_y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  s.path("M "+tr_x+" "+tr_y+" L "+lr_x+" "+lr_y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var lside=s.path("M "+lr_x+" "+lr_y+" L "+ll_x+" "+ll_y).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=lside.getBBox() ;
+  var pin_s=s.path("M "+(bbox.cx)+" "+(bbox.cy)+" L "+(bbox.cx)+" "+(bbox.cy+6)).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=pin_s.getBBox() ;
+  rtn.S.x=bbox.cx ;
+  rtn.S.y=bbox.cy ;
+  var pin_a=s.path("M "+(ll_x)+" "+(ll_y-size/4)+" L "+(ll_x-6)+" "+(ll_y-size/4)).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=pin_a.getBBox() ;
+  rtn.A.x=bbox.cx ;
+  rtn.A.y=bbox.cy ;
+  var pin_b=s.path("M "+(ll_x)+" "+(tl_y+size/4)+" L "+(ll_x-6)+" "+(tl_y+size/4)).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}) ;
+  var bbox=pin_b.getBBox() ;
+  rtn.B.x=bbox.cx ;
+  rtn.B.y=bbox.cy ;
+  var pin_z=s.path("M "+(lr_x)+" "+(lr_y-size*0.3)+" L "+(lr_x+6)+" "+(lr_y-size*0.3)).attr({ stroke: ecolor, fill: 'white'}) ;
+  var bbox=pin_z.getBBox() ;
+  rtn.Z.x=bbox.cx ;
+  rtn.Z.y=bbox.cy ;
+  return rtn;
+}
 function icsvg_text (s,x,y,size,tmain,tsub="") {
   var fs = size ;
   var tmain = s.text(x,y,tmain).attr({"font-size": fs+"px"}) ;
@@ -229,7 +454,7 @@ function icsvg_connect(s,conf) {
       var y=y2 ;
     }    
   }
-  s.path("M "+x1+" "+y1+" L "+x+" "+y+" L "+x2+" "+y2).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0}); ;
+  s.path("M "+x1+" "+y1+" L "+x+" "+y+" L "+x2+" "+y2).attr({ stroke: ecolor, fill: 'white',"fill-opacity":0});
 }
 
 function icsvg_port(s,conf) {
@@ -312,7 +537,7 @@ function icsvg_wave_data_x(s,conf) {
     var end=conf.end
   }
   var cnt=parseInt((end-start)/step);
-  console.log(cnt) ;
+  //console.log(cnt) ;
   var newx = start;
   for (var i=0 ; i<cnt ; i++) {
     s.path("M "+newx+" "+(y-wh)+" L "+(newx+step-2)+" "+y).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0});

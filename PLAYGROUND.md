@@ -8,7 +8,7 @@ s.attr({ viewBox: "0 0 500 200" });
 var startx = 50 ;
 var starty = 20 ;
 
-var conf={
+var reg1=icsvg_reg(s,{
   x: startx,
   y: starty,
   latch: false,
@@ -19,10 +19,9 @@ var conf={
   d_length: 0,
   q_length: 28,
   ck_to_q: true
-} ;
-var reg1=icsvg_reg(s,conf) ;
+}) ;
 
-var conf={
+var reg2=icsvg_reg(s,{
   x: startx+130,
   y: starty,
   size: 50,
@@ -33,80 +32,72 @@ var conf={
   d_length: 28,
   q_length: 0,
   ck_to_q: false
-} ;
-var reg2=icsvg_reg(s,conf) ;
+}) ;
 
-var conf={
+var logic1=icsvg_logic(s,{
   x: startx+80,
   y: starty,
   scale: 0.3
-};
+});
 
-icsvg_logic(s,conf);
-
-var conf={
+var buf1=icsvg_repeater(s,{
   x: startx+80,
   y: starty+60,
   size: 18,
   type:"buffer",
   color:"#123456",
   orient:"r0"
-};
+});
 
-var buf1=icsvg_repeater(s,conf);
-var conf={
+var buf2=icsvg_repeater(s,{
   x: startx-10,
   y: starty+60,
   size: 9,
   type:"buffer",
   color:"#123456",
   orient:"r270"
-};
-
-var buf2=icsvg_repeater(s,conf);
+});
 
 //console.log(buf1.A.x) ;
-  var conf = {
+
+var clkp=icsvg_port(s,{
     x: startx-20,
     y: starty+69,
     name: "CLK",
     position:"left",
     color:"#123456",
     size:3
-  };
+  }) ;
 
-var clkp=icsvg_port(s,conf) ;
-
-conf= {
+icsvg_connect(s,{
   from:buf2.Z,
   to:reg1.CK,
   dir:"clockwise",
   color:"#123456"
-} ;
-icsvg_connect(s,conf) ;
-conf= {
+}) ;
+
+icsvg_connect(s, {
   to:clkp.OUT,
   from:buf1.A,
   dir:"clockwise",
   color:"#123456"
-} ;
-icsvg_connect(s,conf) ;
-conf= {
+}) ;
+
+icsvg_connect(s,{
   from:clkp.OUT,
   to:buf2.A,
   dir:"anticlockwise",
   color:"#123456"
-} ;
-icsvg_connect(s,conf) ;
-conf= {
+}) ;
+
+icsvg_connect(s,{
   from:buf1.Z,
   to:reg2.CK,
   dir:"anticlockwise",
   color:"#123456"
-} ;
-icsvg_connect(s,conf) ;
+}) ;
 
-conf= {
+var wave_conf= {
   x:20,
   y:120,
   repeat:10,
@@ -115,16 +106,44 @@ conf= {
   duty_cycle:0.3,
   name:"CLK"
 }
-icsvg_wave_clock(s,conf) ;
+icsvg_wave_clock(s,wave_conf) ;
 
-conf.y = 150 ;
-icsvg_wave_data(s,conf) ;
+wave_conf.y = 150 ;
+icsvg_wave_data(s,wave_conf) ;
 
-conf.y = 180 ;
-conf.duty_cycle=0.5;
+wave_conf.y = 180 ;
+wave_conf.duty_cycle=0.5;
+icsvg_wave_clock(s,wave_conf) ;
 
-icsvg_wave_clock(s,conf) ;
+icsvg_nand(s,{
+  x: 250,
+  y:50,
+  size: 16
+});
 
+icsvg_nor(s,{
+  x: 290,
+  y:50,
+  size: 16
+});
+icsvg_nxor(s,{
+  x: 330,
+  y:50,
+  size: 16
+});
+icsvg_mux(s,{
+  x: 370,
+  y:50,
+  size: 16
+});
+var buf1=icsvg_repeater(s,{
+  x: 250,
+  y: 55,
+  size: 16,
+  type:"inverter",
+  color:"#123456",
+  orient:"r0"
+});
 //var tmp=s.circle(50,50,2);
 //tmp.click(function(){
 //  tmp.animate({cx: 90}, 30);
