@@ -157,6 +157,26 @@ icsvg_demux(s,{
   y:80,
   size: 16
 });
+var buf1=icsvg_ls(s,{
+  x: 370,
+  y: 65,
+  size: 16,
+  color:"#123456",
+  orient:"r0"
+});
+
+var buf1=icsvg_ls_e(s,{
+  x: 410,
+  y: 35,
+  size: 16,
+  color:"#123456",
+  orient:"r0"
+});
+var buf1=icsvg_iso(s,{
+  x: 410,
+  y: 80,
+  size: 16
+});
 //var tmp=s.circle(50,50,2);
 //tmp.click(function(){
 //  tmp.animate({cx: 90}, 30);

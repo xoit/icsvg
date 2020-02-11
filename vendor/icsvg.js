@@ -58,7 +58,7 @@ function icsvg_reg(s,conf={}) {
   // draw the rectangle of register
   if (typeof conf.type !="undefinedf") {
     if (conf.type=="synchronizer") {
-      var r = s.rect(x+3,y-3,w,h,1,2).attr({ stroke: ecolor, 'strokeWidth': 1.6, fill: 'white', 'opacity': 1 });
+      var r = s.rect(x+3,y-3,w,h,2,2).attr({ stroke: ecolor, 'strokeWidth': 1.6, fill: 'white', 'opacity': 1 });
     }
   }
   var r = s.rect(x,y,w,h,2,2).attr({ stroke: ecolor, 'strokeWidth': 2, fill: 'white', 'opacity': 1 });
@@ -209,6 +209,13 @@ function icsvg_nand(s,conf) {
   rtn.Z.y=y-size/2 ;
   return rtn ;
 }
+function icsvg_iso(s,conf) {
+  var rtn=icsvg_and(s,conf) ;
+  var fs = conf.size * 0.39 ;
+  s.text(conf.x+conf.size*0.16,conf.y-conf.size*0.39,"ISO").attr({"font-size": fs+"px"}) ;
+  return rtn ;
+}
+
 function icsvg_or(s,conf) {
   var rtn = {
     A:{
@@ -527,6 +534,24 @@ function icsvg_repeater(s,conf) {
   bbox=l2.getBBox() ;
   rtn.Z.x=bbox.cx ;
   rtn.Z.y=bbox.cy ;
+  return rtn ;
+}
+
+function icsvg_ls(s,conf) {
+  conf.type="buffer" ;
+  rtn=icsvg_repeater(s,conf) ;
+  var fs = conf.size * 0.39 ;
+  s.text(conf.x+conf.size*0.1,conf.y+conf.size*0.63,"LS").attr({"font-size": fs+"px"}) ;
+  return rtn ;
+}
+
+function icsvg_ls_e(s,conf) {
+  icsvg_ls(s,conf) ;
+  var x2=conf.x+0.866*conf.size ;
+  var y2=conf.y+0.5*conf.size ;
+  var l = s.path("M "+conf.x+" "+(conf.y+conf.size)+" L "+x2 +" "+y2).attr({ stroke: "#123456", fill: 'white',"fill-opacity":0}) ;
+  var bbox=l.getBBox() ;
+  s.path("M "+bbox.cx+" "+bbox.cy+" L "+bbox.cx +" "+(bbox.cy+conf.size*0.5)).attr({ stroke: "#123456","fill-opacity":0}) ;
   return rtn ;
 }
 
